@@ -1,7 +1,18 @@
+<% if current_user %>
+  <p>Hi <%= current_user.email %></p>
+<% else %>
+  <p>Welcome, guest user!</p>
+<% end %>
+
 <h1>List of Events</h1>
+
 <ul>
   <% @events.each do |event| %>
-    <li><%= event.title %></li>
+    <li>
+      <%= event.title %><br>
+      Created by: <%= event.creator.email %>
+    </li>
   <% end %>
 </ul>
+
 

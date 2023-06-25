@@ -1,0 +1,22 @@
+<h1>Create Event</h1>
+
+<%= form_with(model: @event, url: events_path) do |form| %>
+  <div class="field">
+    <%= form.label :title %>
+    <%= form.text_field :title %>
+  </div>
+
+  <div class="field">
+    <%= form.label :date %>
+    <%= form.date_field :date %>
+  </div>
+
+  <div class="field">
+    <%= form.label :location %>
+    <%= form.text_field :location %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit "Create Event" %>
+  </div>
+<% end %>
