@@ -16,7 +16,8 @@
 <ul>
   <% @events.each do |event| %>
     <li>
-      <%= event.title %><br>
+    <!--I want the title to link to the event show page-->
+      <%= link_to event.title, event_path(event) %><br>
       Created by: <%= event.creator.email %>
     </li>
 

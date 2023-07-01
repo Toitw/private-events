@@ -3,5 +3,12 @@
 <p>Location: <%= @event.location %></p>
 <!--I want a link to index-->
 <%= link_to "Back to Events", events_path %>
+<!--List of attendees-->
+<h2>Attendees</h2>
+<ul>
+  <% @event.attendees.each do |attendee| %>
+    <li><%= attendee.email %></li>
+  <% end %>
+</ul>
 
 
