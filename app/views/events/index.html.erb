@@ -19,7 +19,20 @@
       <%= event.title %><br>
       Created by: <%= event.creator.email %>
     </li>
+
+<% if current_user %>
+  <% if current_user.attending?(event) %>
+    <%= button_to "Cancel Attendance", event_attendance_path(event, current_user.attendances.find_by(attended_event_id: event.id)), method: :delete, class: "btn btn-danger" %>
+  <% else %>
+  <!--I want a button "Attend Event" that when clicked send a confirmation message and after that only the option "Cancel Attendance" is available-->
+    <%= button_to "Attend Event", event_attendances_path(event), method: :post, class: "btn btn-primary" %>
+  <% end %>
+<% end %>
+
   <% end %>
 </ul>
+
+<!-- Button to create a new event-->
+<%= link_to "Create Event", new_event_path, class: "btn btn-primary" %>
 
 

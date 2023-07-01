@@ -1,6 +1,7 @@
 class EventsController < ApplicationController
     def index
         @events = Event.all
+        @event = Event.new
     end
 
     def show
@@ -19,7 +20,7 @@ class EventsController < ApplicationController
         else
           render :new
         end
-    end
+    end    
 
     private
 
