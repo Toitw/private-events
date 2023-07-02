@@ -3,38 +3,56 @@
 <% else %>
   <p>Welcome, guest user!</p>
 <% end %>
+
 <% if user_signed_in? %>
   <%= button_to "Logout", destroy_user_session_path, method: :delete, class: "btn btn-danger" %>
 <% else %>
-    <%= link_to "Login", new_user_session_path, class: "btn btn-primary" %>
-    <%= link_to "Sign Up", new_user_registration_path, class: "btn btn-primary" %>
+  <%= link_to "Login", new_user_session_path, class: "btn btn-primary" %>
+  <%= link_to "Sign Up", new_user_registration_path, class: "btn btn-primary" %>
 <% end %>
-<!--I want a link to my_events-->
+
 <%= link_to "My Events", my_events_path, class: "btn btn-primary" %>
 
-<h1>List of Events</h1>
+<h1>Upcoming Events</h1>
 
 <ul>
   <% @events.each do |event| %>
-    <li>
-    <!--I want the title to link to the event show page-->
-      <%= link_to event.title, event_path(event) %><br>
-      Created by: <%= event.creator.email %>
-    </li>
+    <% if event.date.future? %>
+      <li>
+        <!--I want the title to link to the event show page-->
+        <%= link_to event.title, event_path(event) %><br>
+        Created by: <%= event.creator.email %>
 
-<% if current_user %>
-  <% if current_user.attending?(event) %>
-    <%= button_to "Cancel Attendance", event_attendance_path(event, current_user.attendances.find_by(attended_event_id: event.id)), method: :delete, class: "btn btn-danger" %>
-  <% else %>
-  <!--I want a button "Attend Event" that when clicked send a confirmation message and after that only the option "Cancel Attendance" is available-->
-    <%= button_to "Attend Event", event_attendances_path(event), method: :post, class: "btn btn-primary" %>
+        <% if current_user.attending?(event) %>
+          <%= button_to "Cancel Attendance", event_attendance_path(event, current_user.attendances.find_by(attended_event_id: event.id)), method: :delete, class: "btn btn-danger" %>
+        <% else %>
+          <!--I want a button "Attend Event" that when clicked send a confirmation message and after that only the option "Cancel Attendance" is available-->
+          <%= button_to "Attend Event", event_attendances_path(event), method: :post, class: "btn btn-primary" %>
+        <% end %>
+
+        <% if current_user == event.creator %>
+          <%= button_to "Delete Event", event_path(event), method: :delete, class: "btn btn-danger" %>
+        <% end %>
+      </li>
+    <% end %>
   <% end %>
-<% end %>
+</ul>
 
+<h1>Past Events</h1>
+
+<ul>
+  <% @events.each do |event| %>
+    <% if event.date.past? %>
+      <li>
+        <!--I want the title to link to the event show page-->
+        <%= link_to event.title, event_path(event) %><br>
+        Created by: <%= event.creator.email %>
+
+        <br>This event has already happened.
+      </li>
+    <% end %>
   <% end %>
 </ul>
 
 <!-- Button to create a new event-->
 <%= link_to "Create Event", new_event_path, class: "btn btn-primary" %>
-
-
