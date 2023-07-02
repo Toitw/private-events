@@ -28,6 +28,20 @@ class EventsController < ApplicationController
         redirect_to events_path
     end
 
+    def edit
+        @event = Event.find(params[:id])
+        #I want to be able to edit name and date
+    end
+
+    def update
+        @event = Event.find(params[:id])
+        if @event.update(event_params)
+          redirect_to @event, notice: 'Event was successfully updated.'
+        else
+          render :edit
+        end
+    end
+
     private
 
   def event_params

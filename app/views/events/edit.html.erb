@@ -1,0 +1,21 @@
+<h1>Edit Event</h1>
+
+<%= form_for @event do |f| %>
+  <div class="field">
+    <%= f.label :title %>
+    <%= f.text_field :title %>
+  </div>
+
+  <div class="field">
+    <%= f.label :date %>
+    <%= f.date_field :date %>
+  </div>
+
+  <div class="field">
+    <%= f.label :location %>
+    <%= f.text_field :location %>
+  </div>
+
+
+  <%= f.submit "Update Event", class: "btn btn-primary" %>
+<% end %>
