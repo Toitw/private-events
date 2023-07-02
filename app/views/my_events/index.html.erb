@@ -1,0 +1,18 @@
+<h1>List of my Events</h1>
+  <!--List-->
+
+    <% @events.each do |event| %>
+      <% if current_user.attending?(event) %> 
+        <li>
+            <%= link_to event.title, event_path(event) %><br>
+            Created by: <%= event.creator.email %>
+        </li>
+      <% end %>
+
+<% end %>
+<div>
+<br>
+<%= link_to "Back", root_path, class: "btn btn-primary" %>
+</div>
+
+

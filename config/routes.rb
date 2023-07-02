@@ -6,5 +6,8 @@ Rails.application.routes.draw do
   end
   # Defines the root path route ("/")
   # root "articles#index"
+  #I want to add a route to my_events
+  resources :my_events, only: [:index]
+  
   root "events#index"
 end
